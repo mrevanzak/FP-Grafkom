@@ -1,0 +1,11 @@
+Model Information:
+* title:	Sheep
+* source:	https://sketchfab.com/3d-models/sheep-ce927601665c44df9b74794a90164da5
+* author:	mingizz0011 (https://sketchfab.com/mingizz0011)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Sheep" (https://sketchfab.com/3d-models/sheep-ce927601665c44df9b74794a90164da5) by mingizz0011 (https://sketchfab.com/mingizz0011) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
