@@ -8,15 +8,15 @@ import {
   Fog,
   PointLight,
   Mesh,
-  PlaneGeometry,
-  MeshPhongMaterial,
   BoxGeometry,
   MeshBasicMaterial,
   BasicShadowMap,
   DirectionalLight,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { Border } from "./Border";
 import { Dog } from "./Dog";
+import { Ground } from "./Ground";
 import { Sheep } from "./Sheep";
 
 export class App {
@@ -29,7 +29,6 @@ export class App {
     50000
   );
   private readonly light = new PointLight(0xffffff, 1.25, 5000);
-  // direction light green
   private readonly light2 = new DirectionalLight(0xffffff, 0.6);
   private readonly renderer = new WebGLRenderer({
     antialias: true,
@@ -39,8 +38,8 @@ export class App {
     this.camera,
     this.renderer.domElement
   );
-  private dog1: Dog;
-  private dog2: Dog;
+  private dog1 = new Dog();
+  private dog2 = new Dog();
   private x = 0;
 
   constructor() {
@@ -48,19 +47,8 @@ export class App {
     this.setupScene();
     this.setupArea();
     this.setupSheep();
-
-    this.dog1 = new Dog();
-    this.dog1.mesh.position.set(-20, 0.5, 20);
-    this.dog1.mesh.rotateY(Math.PI);
-    this.dog1.mesh.castShadow = true;
-    this.scene.add(this.dog1.mesh);
-    this.dog2 = new Dog();
-    this.dog2.mesh.position.set(20, 0.5, 20);
-    this.dog2.mesh.rotateY(Math.PI);
-    this.dog2.mesh.castShadow = true;
-    this.scene.add(this.dog2.mesh);
-
-    // this.setupSheep();
+    this.setupDogs();
+    this.setupControls();
 
     this.camera.position.set(0, 45, 50);
     this.camera.lookAt(new Vector3(0, 0, 0));
@@ -94,41 +82,19 @@ export class App {
   }
 
   private setupArea() {
-    const ground = new Mesh(
-      new PlaneGeometry(80, 80),
-      new MeshPhongMaterial({
-        color: 0x464646,
-        depthWrite: false,
-      })
-    );
-    ground.rotation.x = -Math.PI / 2;
-    ground.receiveShadow = true;
-    this.scene.add(ground);
+    const ground = new Ground(this.scene, 80, 80);
+    ground.mesh.rotation.x = -Math.PI / 2;
+    ground.mesh.receiveShadow = true;
 
-    const border = new Mesh(
+    const border1 = new Mesh(
       new BoxGeometry(50, 0.18, 0.18),
       new MeshBasicMaterial({ color: 0x232323 })
     );
-    border.position.set(0, 0, 25.25);
-    border.castShadow = true;
-    this.scene.add(border);
-
-    const border2 = border.clone();
-    border2.position.set(0, 0, -25.25);
-    border2.castShadow = true;
-    this.scene.add(border2);
-
-    const border3 = border.clone();
-    border3.rotation.y = Math.PI / 2;
-    border3.position.set(25.25, 0, 0);
-    border3.castShadow = true;
-    this.scene.add(border3);
-
-    const border4 = border.clone();
-    border4.rotation.y = Math.PI / 2;
-    border4.position.set(-25.25, 0, 0);
-    border4.castShadow = true;
-    this.scene.add(border4);
+    border1.position.set(0, 0, 25.25);
+    border1.castShadow = true;
+    this.scene.add(border1);
+    const border = new Border(this.scene);
+    border.placeBorder();
 
     const fence = new Mesh(
       new BoxGeometry(13, 0.185, 0.25),
@@ -169,6 +135,59 @@ export class App {
     }
   }
 
+  private setupDogs() {
+    this.dog1.mesh.position.set(-20, 0.5, 20);
+    this.dog1.mesh.rotateY(Math.PI);
+    this.dog1.mesh.castShadow = true;
+    this.scene.add(this.dog1.mesh);
+
+    this.dog2.mesh.position.set(20, 0.5, 20);
+    this.dog2.mesh.rotateY(Math.PI);
+    this.dog2.mesh.castShadow = true;
+    this.scene.add(this.dog2.mesh);
+  }
+
+  private setupControls() {
+    const keyboard: { [key: string]: boolean } = {};
+
+    window.addEventListener("keydown", (e) => {
+      return (keyboard[e.key] = true);
+    });
+
+    window.addEventListener("keyup", (e) => {
+      return (keyboard[e.key] = false);
+    });
+
+    const speed = 0.01;
+    console.log(keyboard);
+
+    if (keyboard["w"]) {
+      this.dog1.mesh.position.z -= speed;
+    }
+    if (keyboard["s"]) {
+      console.log("s");
+      this.dog1.mesh.position.z += speed;
+    }
+    if (keyboard["a"]) {
+      this.dog1.mesh.position.x -= speed;
+    }
+    if (keyboard["d"]) {
+      this.dog1.mesh.position.x += speed;
+    }
+    if (keyboard["ArrowUp"]) {
+      this.dog2.mesh.position.z -= speed;
+    }
+    if (keyboard["ArrowDown"]) {
+      this.dog2.mesh.position.z += speed;
+    }
+    if (keyboard["ArrowLeft"]) {
+      this.dog2.mesh.position.x -= speed;
+    }
+    if (keyboard["ArrowRight"]) {
+      this.dog2.mesh.position.x += speed;
+    }
+  }
+
   private adjustCanvasSize() {
     this.renderer.setSize(innerWidth, innerHeight);
     this.camera.aspect = innerWidth / innerHeight;
@@ -182,11 +201,9 @@ export class App {
     this.adjustCanvasSize();
 
     this.x += 0.2;
-    // this.dog1.mesh.rotation.y += 0.01
-    // this.dog1.mesh.position.y += Math.sin(this.x) / 30;
+    this.dog1.mesh.position.y += Math.sin(this.x) / 30;
 
-    // this.dog2.mesh.rotation.y += 0.01;
-    // this.dog2.mesh.position.y += Math.sin(this.x) / 30;
+    this.dog2.mesh.position.y += Math.sin(this.x) / 30;
 
     this.renderer.render(this.scene, this.camera);
     // this.brick.rotateY(3 * delta);

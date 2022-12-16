@@ -2,7 +2,8 @@ import { Group } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 export class Sheep {
-  mesh: Group;
+  public mesh: Group;
+  
   constructor() {
     this.mesh = new Group();
     const gltf = new GLTFLoader();
