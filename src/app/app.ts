@@ -157,43 +157,33 @@ export class App {
       keyboard[e.key] = false;
     });
 
-    this.dog1.mesh.position.set(-20, 0.5, 20);
-    this.dog1.mesh.rotateY(Math.PI);
-    this.dog1.mesh.castShadow = true;
-    this.scene.add(this.dog1.mesh);
-
-    this.dog2.mesh.position.set(20, 0.5, 20);
-    this.dog2.mesh.rotateY(Math.PI);
-    this.dog2.mesh.castShadow = true;
-    this.scene.add(this.dog2.mesh);
-
     const animate = () => {
       requestAnimationFrame(animate);
 
       if (keyboard["w"]) {
-        this.dog1.mesh.translateZ(-0.2);
-      }
-      if (keyboard["s"]) {
         this.dog1.mesh.translateZ(0.2);
       }
+      if (keyboard["s"]) {
+        this.dog1.mesh.translateZ(-0.2);
+      }
       if (keyboard["a"]) {
-        this.dog1.mesh.translateX(-0.2);
+        this.dog1.mesh.translateX(0.2);
       }
       if (keyboard["d"]) {
-        this.dog1.mesh.translateX(0.2);
+        this.dog1.mesh.translateX(-0.2);
       }
 
       if (keyboard["ArrowUp"]) {
-        this.dog2.mesh.translateZ(-0.2);
-      }
-      if (keyboard["ArrowDown"]) {
         this.dog2.mesh.translateZ(0.2);
       }
+      if (keyboard["ArrowDown"]) {
+        this.dog2.mesh.translateZ(-0.2);
+      }
       if (keyboard["ArrowLeft"]) {
-        this.dog2.mesh.translateX(-0.2);
+        this.dog2.mesh.translateX(0.2);
       }
       if (keyboard["ArrowRight"]) {
-        this.dog2.mesh.translateX(0.2);
+        this.dog2.mesh.translateX(-0.2);
       }
 
       this.renderer.render(this.scene, this.camera);
