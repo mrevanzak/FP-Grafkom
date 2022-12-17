@@ -41,6 +41,7 @@ export class App {
   private dog1 = new Dog();
   private dog2 = new Dog();
   private x = 0;
+  private keyboard: { [key: string]: boolean } = {};
 
   constructor() {
     this.setupLight();
@@ -148,49 +149,42 @@ export class App {
   }
 
   private setupControls() {
-    const keyboard: { [key: string]: boolean } = {};
-
     window.addEventListener("keydown", (e) => {
-      keyboard[e.key] = true;
+      this.keyboard[e.key] = true;
     });
     window.addEventListener("keyup", (e) => {
-      keyboard[e.key] = false;
+      this.keyboard[e.key] = false;
     });
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-
-      if (keyboard["w"]) {
-        this.dog1.mesh.translateZ(0.2);
-      }
-      if (keyboard["s"]) {
-        this.dog1.mesh.translateZ(-0.2);
-      }
-      if (keyboard["a"]) {
-        this.dog1.mesh.translateX(0.2);
-      }
-      if (keyboard["d"]) {
-        this.dog1.mesh.translateX(-0.2);
-      }
-
-      if (keyboard["ArrowUp"]) {
-        this.dog2.mesh.translateZ(0.2);
-      }
-      if (keyboard["ArrowDown"]) {
-        this.dog2.mesh.translateZ(-0.2);
-      }
-      if (keyboard["ArrowLeft"]) {
-        this.dog2.mesh.translateX(0.2);
-      }
-      if (keyboard["ArrowRight"]) {
-        this.dog2.mesh.translateX(-0.2);
-      }
-
-      this.renderer.render(this.scene, this.camera);
-    };
-    animate();
   }
-  
+
+  private keyboardControls() {
+    if (this.keyboard["w"]) {
+      this.dog1.mesh.translateZ(0.2);
+    }
+    if (this.keyboard["s"]) {
+      this.dog1.mesh.translateZ(-0.2);
+    }
+    if (this.keyboard["a"]) {
+      this.dog1.mesh.translateX(0.2);
+    }
+    if (this.keyboard["d"]) {
+      this.dog1.mesh.translateX(-0.2);
+    }
+
+    if (this.keyboard["ArrowUp"]) {
+      this.dog2.mesh.translateZ(0.2);
+    }
+    if (this.keyboard["ArrowDown"]) {
+      this.dog2.mesh.translateZ(-0.2);
+    }
+    if (this.keyboard["ArrowLeft"]) {
+      this.dog2.mesh.translateX(0.2);
+    }
+    if (this.keyboard["ArrowRight"]) {
+      this.dog2.mesh.translateX(-0.2);
+    }
+  }
+
   private adjustCanvasSize() {
     this.renderer.setSize(innerWidth, innerHeight);
     this.camera.aspect = innerWidth / innerHeight;
@@ -201,6 +195,7 @@ export class App {
     const delta = this.timer.getDelta();
 
     requestAnimationFrame(() => this.render());
+    this.keyboardControls();
     this.adjustCanvasSize();
 
     this.x += 0.2;
