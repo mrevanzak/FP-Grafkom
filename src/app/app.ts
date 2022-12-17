@@ -18,6 +18,7 @@ import { Border } from "./Border";
 import { Dog } from "./Dog";
 import { Ground } from "./Ground";
 import { Sheep } from "./Sheep";
+import { Skybox } from "./Skybox";
 
 export class App {
   private readonly timer = new Clock();
@@ -43,6 +44,7 @@ export class App {
   private sheep = new Sheep();
   private x = 0;
   private keyboard: { [key: string]: boolean } = {};
+  private skybox = new Skybox();
 
   constructor() {
     this.setupLight();
@@ -52,6 +54,7 @@ export class App {
     this.setupDogs();
     this.scene.add(this.sheep.mesh);
     this.setupControls();
+    this.setupSkybox();
 
     this.camera.position.set(0, 45, 50);
     this.camera.lookAt(new Vector3(0, 0, 0));
@@ -65,9 +68,13 @@ export class App {
     this.render();
   }
 
+  private setupSkybox() {
+    this.scene.add(this.skybox.mesh);
+  }
+
   private setupScene() {
     this.scene.background = new Color(0x000000);
-    this.scene.fog = new Fog(0xa0a0a0, 8000, 30000);
+    this.scene.fog = new Fog("rgb(135,181,235))", 8000, 30000);
   }
 
   private setupLight() {
