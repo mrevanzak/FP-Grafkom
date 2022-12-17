@@ -159,30 +159,87 @@ export class App {
 
   private keyboardControls() {
     if (this.keyboard["w"]) {
-      this.dog1.mesh.translateZ(0.2);
+      this.dog1.mesh.position.z -= 0.2;
+      this.dog1.mesh.rotation.y = 0;
     }
     if (this.keyboard["s"]) {
-      this.dog1.mesh.translateZ(-0.2);
+      this.dog1.mesh.position.z += 0.2;
+      this.dog1.mesh.rotation.y = Math.PI;
     }
     if (this.keyboard["a"]) {
-      this.dog1.mesh.translateX(0.2);
+      this.dog1.mesh.position.x -= 0.2;
+      this.dog1.mesh.rotation.y = -Math.PI / 2;
     }
     if (this.keyboard["d"]) {
-      this.dog1.mesh.translateX(-0.2);
+      this.dog1.mesh.position.x += 0.2;
+      this.dog1.mesh.rotation.y = Math.PI / 2;
+    }
+    if (this.keyboard["s"] && this.keyboard["d"]) {
+      const x = -0.2;
+      const y = 0.2;
+      const angle = Math.atan2(y, x);
+      this.dog1.mesh.rotation.y = angle;
+    }
+    if (this.keyboard["s"] && this.keyboard["a"]) {
+      const x = -0.2;
+      const y = -0.2;
+      const angle = Math.atan2(y, x);
+      this.dog1.mesh.rotation.y = angle;
+    }
+    if (this.keyboard["w"] && this.keyboard["d"]) {
+      const x = 0.2;
+      const y = 0.2;
+      const angle = Math.atan2(y, x);
+      this.dog1.mesh.rotation.y = angle;
+    }
+    if (this.keyboard["w"] && this.keyboard["a"]) {
+      const x = 0.2;
+      const y = -0.2;
+      const angle = Math.atan2(y, x);
+      this.dog1.mesh.rotation.y = angle;
     }
 
     if (this.keyboard["ArrowUp"]) {
-      this.dog2.mesh.translateZ(0.2);
+      this.dog2.mesh.position.z -= 0.2;
+      this.dog2.mesh.rotation.y = 0;
     }
     if (this.keyboard["ArrowDown"]) {
-      this.dog2.mesh.translateZ(-0.2);
+      this.dog2.mesh.position.z += 0.2;
+      this.dog2.mesh.rotation.y = Math.PI;
     }
     if (this.keyboard["ArrowLeft"]) {
-      this.dog2.mesh.translateX(0.2);
+      this.dog2.mesh.position.x -= 0.2;
+      this.dog2.mesh.rotation.y = -Math.PI / 2;
     }
     if (this.keyboard["ArrowRight"]) {
-      this.dog2.mesh.translateX(-0.2);
+      this.dog2.mesh.position.x += 0.2;
+      this.dog2.mesh.rotation.y = Math.PI / 2;
     }
+    if (this.keyboard["ArrowDown"] && this.keyboard["ArrowLeft"]) {
+      const x = -0.2;
+      const y = -0.2;
+      const angle = Math.atan2(y, x);
+      this.dog2.mesh.rotation.y = angle;
+    }
+    if (this.keyboard["ArrowUp"] && this.keyboard["ArrowLeft"]) {
+      const x = 0.2;
+      const y = -0.2;
+      const angle = Math.atan2(y, x);
+      this.dog2.mesh.rotation.y = angle;
+    }
+    if (this.keyboard["ArrowUp"] && this.keyboard["ArrowRight"]) {
+      const x = 0.2;
+      const y = 0.2;
+      const angle = Math.atan2(y, x);
+      this.dog2.mesh.rotation.y = angle;
+    }
+    if (this.keyboard["ArrowDown"] && this.keyboard["ArrowRight"]) {
+      const x = -0.2;
+      const y = 0.2;
+      const angle = Math.atan2(y, x);
+      this.dog2.mesh.rotation.y = angle;
+    }
+
   }
 
   private adjustCanvasSize() {
