@@ -40,6 +40,7 @@ export class App {
   );
   private dog1 = new Dog();
   private dog2 = new Dog();
+  private sheep = new Sheep();
   private x = 0;
   private keyboard: { [key: string]: boolean } = {};
 
@@ -49,6 +50,7 @@ export class App {
     this.setupArea();
     this.setupSheep();
     this.setupDogs();
+    this.scene.add(this.sheep.mesh);
     this.setupControls();
 
     this.camera.position.set(0, 45, 50);
@@ -87,53 +89,21 @@ export class App {
     ground.mesh.rotation.x = -Math.PI / 2;
     ground.mesh.receiveShadow = true;
 
-    const border1 = new Mesh(
-      new BoxGeometry(50, 0.18, 0.18),
-      new MeshBasicMaterial({ color: 0x232323 })
-    );
-    border1.position.set(0, 0, 25.25);
-    border1.castShadow = true;
-    this.scene.add(border1);
     const border = new Border(this.scene);
     border.placeBorder();
-
-    const fence = new Mesh(
-      new BoxGeometry(13, 0.185, 0.25),
-      new MeshBasicMaterial({ color: 0xff0000 })
-    );
-    fence.position.set(-8, 0.25, 12);
-    fence.castShadow = true;
-    this.scene.add(fence);
-
-    const fence2 = fence.clone();
-    fence2.position.set(8, 0.25, 12);
-    fence2.castShadow = true;
-    this.scene.add(fence2);
-
-    const fence3 = fence.clone();
-    fence3.position.set(-14.5, 0.25, 18.5);
-    fence3.rotation.y = Math.PI / 2;
-    fence3.castShadow = true;
-    this.scene.add(fence3);
-
-    const fence4 = fence.clone();
-    fence4.position.set(14.5, 0.25, 18.5);
-    fence4.rotation.y = Math.PI / 2;
-    fence4.castShadow = true;
-    this.scene.add(fence4);
   }
 
   private setupSheep() {
-    for (let i = 0; i < 100; i++) {
-      const sheep = new Sheep();
-      sheep.mesh.position.set(
-        Math.random() * 50 - 25,
-        0.5,
-        Math.random() * 50 - 25
-      );
-      sheep.mesh.castShadow = true;
-      this.scene.add(sheep.mesh);
-    }
+    // const sheep = new Sheep()
+    // this.scene.add(sheep.mesh)
+    // const sheep = new Sheep();
+    // sheep.mesh.position.set(
+    //   (Math.random() - 0.5) * 40,
+    //   0.5,
+    //   (Math.random() - 0.5) * 40
+    // );
+    // sheep.mesh.castShadow = true;
+    // this.scene.add(sheep.mesh);
   }
 
   private setupDogs() {
@@ -253,6 +223,7 @@ export class App {
 
     requestAnimationFrame(() => this.render());
     this.keyboardControls();
+    this.sheep.animate(this.dog1.mesh, this.dog2.mesh);
     this.adjustCanvasSize();
 
     this.x += 0.2;

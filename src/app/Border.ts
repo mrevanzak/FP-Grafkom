@@ -6,6 +6,10 @@ export class Border {
   private border2 = new Group();
   private border3 = new Group();
   private border4 = new Group();
+  private fence1 = new Group();
+  private fence2 = new Group();
+  private fence3 = new Group();
+  private fence4 = new Group();
   private scene: Scene;
 
   constructor(scene: Scene) {
@@ -41,6 +45,32 @@ export class Border {
         border4.castShadow = true;
         this.border4.add(border4);
       }
+
+      z = 0;
+      for (let i = 0; i < 4; i++) {
+        z += 1.4;
+        const fence = root.clone();
+        fence.position.set(0, 0, z);
+        fence.castShadow = true;
+        this.fence1.add(fence);
+
+        const fence2 = root.clone();
+        fence2.position.set(0, 0, z);
+        fence2.castShadow = true;
+        this.fence2.add(fence2);
+
+        if (i > 2) continue;
+
+        const fence3 = root.clone();
+        fence3.position.set(0, 0, z);
+        fence3.castShadow = true;
+        this.fence3.add(fence3);
+
+        const fence4 = root.clone();
+        fence4.position.set(0, 0, z);
+        fence4.castShadow = true;
+        this.fence4.add(fence4);
+      }
     });
   }
 
@@ -64,5 +94,23 @@ export class Border {
     this.border4.scale.set(3, 3, 3);
     this.border4.rotation.y = 0;
     this.scene.add(this.border4);
+
+    this.fence1.position.set(-15, 0, 9);
+    this.fence1.scale.set(3, 3, 3);
+    this.scene.add(this.fence1);
+
+    this.fence2.position.set(15, 0, 9);
+    this.fence2.scale.set(3, 3, 3);
+    this.scene.add(this.fence2);
+
+    this.fence3.position.set(15, 0, 9);
+    this.fence3.rotateY(-Math.PI / 2);
+    this.fence3.scale.set(3, 3, 3);
+    this.scene.add(this.fence3);
+
+    this.fence4.position.set(-15, 0, 9);
+    this.fence4.rotateY(Math.PI / 2);
+    this.fence4.scale.set(3, 3, 3);
+    this.scene.add(this.fence4);
   }
 }
