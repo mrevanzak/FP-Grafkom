@@ -1,6 +1,5 @@
 import { Group, Scene } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { clone } from "three/examples/jsm/utils/SkeletonUtils";
 
 export class Border {
   private border1 = new Group();
@@ -22,22 +21,22 @@ export class Border {
       let z = 0;
       for (let i = 0; i < 12; i++) {
         z += 1.4;
-        const border = clone(root);
+        const border = root.clone();
         border.position.set(0, 0, z);
         border.castShadow = true;
         this.border1.add(border);
 
-        const border2 = clone(root);
+        const border2 = root.clone();
         border2.position.set(0, 0, z);
         border2.castShadow = true;
         this.border2.add(border2);
 
-        const border3 = clone(root);
+        const border3 = root.clone();
         border3.position.set(0, 0, z);
         border3.castShadow = true;
         this.border3.add(border3);
 
-        const border4 = clone(root);
+        const border4 = root.clone();
         border4.position.set(0, 0, z);
         border4.castShadow = true;
         this.border4.add(border4);
