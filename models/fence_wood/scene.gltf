@@ -3,106 +3,138 @@
     {
       "bufferView": 2,
       "componentType": 5126,
-      "count": 176,
+      "count": 216,
       "max": [
-        1.702559232711792,
-        3.9694759845733643,
-        1.5053822994232178
+        0.07500000298023224,
+        4.361208915710449,
+        2.0196430683135986
       ],
       "min": [
-        0.0,
-        0.0,
+        -0.07500000298023224,
+        -0.07500000298023224,
         0.0
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 2,
-      "byteOffset": 2112,
+      "byteOffset": 2592,
       "componentType": 5126,
-      "count": 176,
+      "count": 216,
       "max": [
-        0.9553322792053223,
-        0.9384498000144958,
-        0.9999967217445374
+        1.0,
+        1.0,
+        1.0
       ],
       "min": [
-        -0.9553068280220032,
-        -0.9405639171600342,
-        -0.9999967217445374
+        -1.0,
+        -1.0,
+        -1.0
       ],
       "type": "VEC3"
     },
     {
-      "bufferView": 1,
+      "bufferView": 3,
       "componentType": 5126,
-      "count": 176,
+      "count": 216,
       "max": [
-        1.0722240209579468,
-        2.1002800464630127
+        1.0,
+        1.0,
+        1.0,
+        1.0
       ],
       "min": [
-        0.0,
-        -0.9877756237983704
+        -1.0,
+        -1.0,
+        -1.0,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 216,
+      "max": [
+        0.9415140151977539,
+        0.9980080127716064
+      ],
+      "min": [
+        0.0018789999885484576,
+        0.0019920000340789557
       ],
       "type": "VEC2"
     },
     {
       "bufferView": 0,
       "componentType": 5125,
-      "count": 264,
+      "count": 324,
       "type": "SCALAR"
     }
   ],
   "asset": {
     "extras": {
-      "author": "trentspi (https://sketchfab.com/trentspice)",
+      "author": "Artyom (https://sketchfab.com/Art62)",
       "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
-      "source": "https://sketchfab.com/3d-models/fence-wood-e530c55db10348a3a547ef92149bdd10",
-      "title": "Fence (Wood)"
+      "source": "https://sketchfab.com/3d-models/fence-6224ede9a3bb4dfd8ed56ff1726abfbe",
+      "title": "Fence"
     },
-    "generator": "Sketchfab-12.68.0",
+    "generator": "Sketchfab-12.67.0",
     "version": "2.0"
   },
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 1056,
+      "byteLength": 1296,
       "name": "floatBufferViews",
       "target": 34963
     },
     {
       "buffer": 0,
-      "byteLength": 1408,
-      "byteOffset": 1056,
+      "byteLength": 1728,
+      "byteOffset": 1296,
       "byteStride": 8,
       "name": "floatBufferViews",
       "target": 34962
     },
     {
       "buffer": 0,
-      "byteLength": 4224,
-      "byteOffset": 2464,
+      "byteLength": 5184,
+      "byteOffset": 3024,
       "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 3456,
+      "byteOffset": 8208,
+      "byteStride": 16,
       "name": "floatBufferViews",
       "target": 34962
     }
   ],
   "buffers": [
     {
-      "byteLength": 6688,
+      "byteLength": 11664,
       "uri": "scene.bin"
     }
   ],
   "images": [
     {
-      "uri": "textures/WoodLog_Plank_baseColor.jpeg"
+      "uri": "textures/initialShadingGroup_baseColor.png"
+    },
+    {
+      "uri": "textures/initialShadingGroup_normal.png"
     }
   ],
   "materials": [
     {
       "doubleSided": true,
-      "name": "WoodLog_Plank",
+      "name": "initialShadingGroup",
+      "normalTexture": {
+        "index": 1
+      },
       "pbrMetallicRoughness": {
         "baseColorTexture": {
           "index": 0
@@ -120,9 +152,10 @@
           "attributes": {
             "NORMAL": 1,
             "POSITION": 0,
-            "TEXCOORD_0": 2
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
           },
-          "indices": 3,
+          "indices": 4,
           "material": 0,
           "mode": 4
         }
@@ -135,17 +168,17 @@
         1
       ],
       "matrix": [
-        1.0,
+        0.3172013759613037,
         0.0,
         0.0,
         0.0,
         0.0,
-        2.220446049250313e-16,
-        -1.0,
+        7.0432854207004e-17,
+        -0.3172013759613037,
         0.0,
         0.0,
-        1.0,
-        2.220446049250313e-16,
+        0.3172013759613037,
+        7.0432854207004e-17,
         0.0,
         0.0,
         0.0,
@@ -158,25 +191,7 @@
       "children": [
         2
       ],
-      "matrix": [
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0,
-        0.0,
-        -0.002672194968909025,
-        -3.886806011199951,
-        -0.0005402565002441406,
-        1.0
-      ],
-      "name": "fence.obj.cleaner.gles"
+      "name": "490bff519e7d464cae99071e28b6f0ac.obj.cleaner.materialmerger.gles"
     },
     {
       "mesh": 0,
@@ -204,6 +219,10 @@
     {
       "sampler": 0,
       "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
     }
   ]
 }

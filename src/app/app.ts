@@ -148,45 +148,97 @@ export class App {
   }
 
   private setupControls() {
+    // setup controls using OrbitControls (dog 1 moves with wasd, dog 2 moves with arrow keys)
     const keyboard: { [key: string]: boolean } = {};
 
     window.addEventListener("keydown", (e) => {
-      return (keyboard[e.key] = true);
+      keyboard[e.key] = true;
     });
-
     window.addEventListener("keyup", (e) => {
-      return (keyboard[e.key] = false);
+      keyboard[e.key] = false;
     });
 
-    const speed = 0.01;
-    console.log(keyboard);
+    this.dog1.mesh.position.set(-20, 0.5, 20);
+    this.dog1.mesh.rotateY(Math.PI);
+    this.dog1.mesh.castShadow = true;
+    this.scene.add(this.dog1.mesh);
 
-    if (keyboard["w"]) {
-      this.dog1.mesh.position.z -= speed;
-    }
-    if (keyboard["s"]) {
-      console.log("s");
-      this.dog1.mesh.position.z += speed;
-    }
-    if (keyboard["a"]) {
-      this.dog1.mesh.position.x -= speed;
-    }
-    if (keyboard["d"]) {
-      this.dog1.mesh.position.x += speed;
-    }
-    if (keyboard["ArrowUp"]) {
-      this.dog2.mesh.position.z -= speed;
-    }
-    if (keyboard["ArrowDown"]) {
-      this.dog2.mesh.position.z += speed;
-    }
-    if (keyboard["ArrowLeft"]) {
-      this.dog2.mesh.position.x -= speed;
-    }
-    if (keyboard["ArrowRight"]) {
-      this.dog2.mesh.position.x += speed;
-    }
+    this.dog2.mesh.position.set(20, 0.5, 20);
+    this.dog2.mesh.rotateY(Math.PI);
+    this.dog2.mesh.castShadow = true;
+    this.scene.add(this.dog2.mesh);
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+
+      if (keyboard["w"]) {
+        this.dog1.mesh.translateZ(-0.2);
+      }
+      if (keyboard["s"]) {
+        this.dog1.mesh.translateZ(0.2);
+      }
+      if (keyboard["a"]) {
+        this.dog1.mesh.translateX(-0.2);
+      }
+      if (keyboard["d"]) {
+        this.dog1.mesh.translateX(0.2);
+      }
+
+      if (keyboard["ArrowUp"]) {
+        this.dog2.mesh.translateZ(-0.2);
+      }
+      if (keyboard["ArrowDown"]) {
+        this.dog2.mesh.translateZ(0.2);
+      }
+      if (keyboard["ArrowLeft"]) {
+        this.dog2.mesh.translateX(-0.2);
+      }
+      if (keyboard["ArrowRight"]) {
+        this.dog2.mesh.translateX(0.2);
+      }
+
+      this.renderer.render(this.scene, this.camera);
+    };
+    animate();
   }
+  // const keyboard: { [key: string]: boolean } = {};
+
+  // window.addEventListener("keydown", (e) => {
+  //   return (keyboard[e.key] = true);
+  // });
+
+  // window.addEventListener("keyup", (e) => {
+  //   return (keyboard[e.key] = false);
+  // });
+
+  // const speed = 0.01;
+  // console.log(keyboard);
+
+  // if (keyboard["w"]) {
+  //   this.dog1.mesh.position.z -= speed;
+  // }
+  // if (keyboard["s"]) {
+  //   console.log("s");
+  //   this.dog1.mesh.position.z += speed;
+  // }
+  // if (keyboard["a"]) {
+  //   this.dog1.mesh.position.x -= speed;
+  // }
+  // if (keyboard["d"]) {
+  //   this.dog1.mesh.position.x += speed;
+  // }
+  // if (keyboard["ArrowUp"]) {
+  //   this.dog2.mesh.position.z -= speed;
+  // }
+  // if (keyboard["ArrowDown"]) {
+  //   this.dog2.mesh.position.z += speed;
+  // }
+  // if (keyboard["ArrowLeft"]) {
+  //   this.dog2.mesh.position.x -= speed;
+  // }
+  // if (keyboard["ArrowRight"]) {
+  //   this.dog2.mesh.position.x += speed;
+  // }
 
   private adjustCanvasSize() {
     this.renderer.setSize(innerWidth, innerHeight);
