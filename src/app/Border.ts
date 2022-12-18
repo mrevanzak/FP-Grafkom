@@ -108,7 +108,7 @@ export class Border {
     this.border3.rotation.y = -Math.PI / 2;
     const border3Body = new Body({
       type: Body.STATIC,
-      position: new Vec3(0, 2, -24.2),
+      position: new Vec3(0, 2, -24.7),
       shape: new Box(new Vec3(26, 3, 1)),
     });
     this.world.addBody(border3Body);
