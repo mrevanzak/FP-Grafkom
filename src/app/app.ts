@@ -22,6 +22,7 @@ import { Dog } from "./Dog";
 import { Ground } from "./Ground";
 import { Sheep } from "./Sheep";
 import { Skybox } from "./Skybox";
+import { Music } from "./Music";
 
 export class App {
   private readonly timer = new Clock();
@@ -43,16 +44,16 @@ export class App {
     this.renderer.domElement
   );
   private world = new World({
-    gravity: new Vec3(0, -9.82, 0),
-    allowSleep: true,
+    gravity: new Vec3(0, -50.00, 0),
   });
-  private cannonDebugRenderer = new CannonDebugRenderer(this.scene, this.world);
+  // private cannonDebugRenderer = new CannonDebugRenderer(this.scene, this.world);
   private dog1 = new Dog();
   private dog2 = new Dog();
   private sheep = new Sheep();
   private x = 0;
   private keyboard: { [key: string]: boolean } = {};
   private skybox = new Skybox();
+  private music = new Music("audio/1.mp3");
 
   private cubeMesh: Mesh;
   private cubeBody: Body;
@@ -68,6 +69,7 @@ export class App {
     this.scene.add(this.sheep.mesh);
     this.setupControls();
     this.setupSkybox();
+    this.music.play();
 
     this.cubeMesh = new Mesh(
       new BoxGeometry(1, 1, 1),
@@ -164,96 +166,97 @@ export class App {
   }
 
   private keyboardControls() {
+    let speed = 0.15;
     if (this.keyboard["w"]) {
-      this.dog1.body.position.z -= 0.2;
+      this.dog1.body.position.z -= speed;
       this.dog1.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), Math.PI);
     }
     if (this.keyboard["s"]) {
-      this.dog1.body.position.z += 0.2;
+      this.dog1.body.position.z += speed;
       this.dog1.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), 0);
     }
     if (this.keyboard["a"]) {
-      this.dog1.body.position.x -= 0.2;
+      this.dog1.body.position.x -= speed;
       this.dog1.body.quaternion.setFromAxisAngle(
         new Vec3(0, 1, 0),
         -Math.PI / 2
       );
     }
     if (this.keyboard["d"]) {
-      this.dog1.body.position.x += 0.2;
+      this.dog1.body.position.x += speed;
       this.dog1.body.quaternion.setFromAxisAngle(
         new Vec3(0, 1, 0),
         Math.PI / 2
       );
     }
     if (this.keyboard["s"] && this.keyboard["d"]) {
-      const x = 0.2;
-      const y = 0.2;
+      const x = speed;
+      const y = speed;
       const angle = Math.atan2(y, x);
       this.dog1.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), angle);
     }
     if (this.keyboard["s"] && this.keyboard["a"]) {
-      const x = 0.2;
-      const y = -0.2;
+      const x = speed;
+      const y = -speed;
       const angle = Math.atan2(y, x);
       this.dog1.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), angle);
     }
     if (this.keyboard["w"] && this.keyboard["d"]) {
-      const x = -0.2;
-      const y = 0.2;
+      const x = -speed;
+      const y = speed;
       const angle = Math.atan2(y, x);
       this.dog1.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), angle);
     }
     if (this.keyboard["w"] && this.keyboard["a"]) {
-      const x = -0.2;
-      const y = -0.2;
+      const x = -speed;
+      const y = -speed;
       const angle = Math.atan2(y, x);
       this.dog1.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), angle);
     }
 
     if (this.keyboard["ArrowUp"]) {
-      this.dog2.body.position.z -= 0.2;
+      this.dog2.body.position.z -= speed;
       this.dog2.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), Math.PI);
     }
     if (this.keyboard["ArrowDown"]) {
-      this.dog2.body.position.z += 0.2;
+      this.dog2.body.position.z += speed;
       this.dog2.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), 0);
     }
     if (this.keyboard["ArrowLeft"]) {
-      this.dog2.body.position.x -= 0.2;
+      this.dog2.body.position.x -= speed;
       this.dog2.body.quaternion.setFromAxisAngle(
         new Vec3(0, 1, 0),
         -Math.PI / 2
       );
     }
     if (this.keyboard["ArrowRight"]) {
-      this.dog2.body.position.x += 0.2;
+      this.dog2.body.position.x += speed;
       this.dog2.body.quaternion.setFromAxisAngle(
         new Vec3(0, 1, 0),
         Math.PI / 2
       );
     }
     if (this.keyboard["ArrowDown"] && this.keyboard["ArrowLeft"]) {
-      const x = 0.2;
-      const y = -0.2;
+      const x = speed;
+      const y = -speed;
       const angle = Math.atan2(y, x);
-      this.dog1.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), angle);
+      this.dog2.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), angle);
     }
     if (this.keyboard["ArrowUp"] && this.keyboard["ArrowLeft"]) {
-      const x = -0.2;
-      const y = -0.2;
+      const x = -speed;
+      const y = -speed;
       const angle = Math.atan2(y, x);
-      this.dog1.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), angle);
+      this.dog2.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), angle);
     }
     if (this.keyboard["ArrowUp"] && this.keyboard["ArrowRight"]) {
-      const x = -0.2;
-      const y = 0.2;
+      const x = -speed;
+      const y = speed;
       const angle = Math.atan2(y, x);
-      this.dog1.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), angle);
+      this.dog2.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), angle);
     }
     if (this.keyboard["ArrowDown"] && this.keyboard["ArrowRight"]) {
-      const x = 0.2;
-      const y = 0.2;
+      const x = speed;
+      const y = speed;
       const angle = Math.atan2(y, x);
       this.dog2.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), angle);
     }
@@ -269,7 +272,7 @@ export class App {
     const delta = this.timer.getDelta();
 
     requestAnimationFrame(() => this.render());
-    this.cannonDebugRenderer.update();
+    // this.cannonDebugRenderer.update();
     this.world.fixedStep();
     this.dog1.update();
     this.dog2.update();
@@ -288,7 +291,7 @@ export class App {
     this.sheep.animate(this.dog1.mesh, this.dog2.mesh);
     this.adjustCanvasSize();
 
-    // this.x += 0.2;
+    // this.x += speed;
     // this.dog1.mesh.position.y += Math.sin(this.x) / 30;
 
     // this.dog2.mesh.position.y += Math.sin(this.x) / 30;

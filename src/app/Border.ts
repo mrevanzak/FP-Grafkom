@@ -85,8 +85,8 @@ export class Border {
     this.border1.rotation.y = Math.PI / 2;
     const border1Body = new Body({
       type: Body.STATIC,
-      position: new Vec3(0, 1, 26.3),
-      shape: new Box(new Vec3(26, 1, 0.5)),
+      position: new Vec3(0, 2, 26),
+      shape: new Box(new Vec3(26, 3, 1)),
     });
     this.world.addBody(border1Body);
     this.scene.add(this.border1);
@@ -96,8 +96,8 @@ export class Border {
     this.border2.rotation.y = Math.PI;
     const border2Body = new Body({
       type: Body.STATIC,
-      position: new Vec3(25.7, 1, 0),
-      shape: new Box(new Vec3(26, 1, 0.5)),
+      position: new Vec3(25.5, 2, 0),
+      shape: new Box(new Vec3(26, 3, 1)),
     });
     border2Body.quaternion.setFromEuler(0, Math.PI/2, 0);
     this.world.addBody(border2Body);
@@ -108,8 +108,8 @@ export class Border {
     this.border3.rotation.y = -Math.PI / 2;
     const border3Body = new Body({
       type: Body.STATIC,
-      position: new Vec3(0, 1, -24.2),
-      shape: new Box(new Vec3(26, 1, 0.5)),
+      position: new Vec3(0, 2, -24.2),
+      shape: new Box(new Vec3(26, 3, 1)),
     });
     this.world.addBody(border3Body);
     this.scene.add(this.border3);
@@ -119,8 +119,8 @@ export class Border {
     this.border4.rotation.y = 0;
     const border4Body = new Body({
       type: Body.STATIC,
-      position: new Vec3(-25.4, 1, 0),
-      shape: new Box(new Vec3(26, 1, 0.5)),
+      position: new Vec3(-25, 2, 0),
+      shape: new Box(new Vec3(26, 3, 1)),
     });
     border4Body.quaternion.setFromEuler(0, Math.PI/2, 0);
     this.world.addBody(border4Body);
@@ -131,7 +131,7 @@ export class Border {
     const fence1Body = new Body({
       type: Body.STATIC,
       position: new Vec3(-15, 1, 18),
-      shape: new Box(new Vec3(0.1, 1, 9)),
+      shape: new Box(new Vec3(1, 2, 10)),
     });
     this.world.addBody(fence1Body);
     this.scene.add(this.fence1);
@@ -141,7 +141,7 @@ export class Border {
     const fence2Body = new Body({
       type: Body.STATIC,
       position: new Vec3(15, 1, 18),
-      shape: new Box(new Vec3(0.1, 1, 9)),
+      shape: new Box(new Vec3(1, 2, 10)),
     });
     this.world.addBody(fence2Body);
     this.scene.add(this.fence2);
@@ -152,7 +152,7 @@ export class Border {
     const fence3Body = new Body({
       type: Body.STATIC,
       position: new Vec3(8.5, 1, 9),
-      shape: new Box(new Vec3(0.1, 1, 6.3)),
+      shape: new Box(new Vec3(1, 2, 6.3)),
     });
     fence3Body.quaternion.setFromEuler(0, Math.PI/2, 0);
     this.world.addBody(fence3Body);
@@ -164,7 +164,7 @@ export class Border {
     const fence4Body = new Body({
       type: Body.STATIC,
       position: new Vec3(-8.5, 1, 9),
-      shape: new Box(new Vec3(0.1, 1, 6.3)),
+      shape: new Box(new Vec3(1, 2, 6.3)),
     });
     fence4Body.quaternion.setFromEuler(0, Math.PI / 2, 0);
     this.world.addBody(fence4Body);
