@@ -1,9 +1,10 @@
-import { Group, Object3D } from "three";
+import { Body, Box, Vec3 } from "cannon-es";
+import { Group } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 export class Sheep {
   public mesh: Group;
-  private y = 0;
+  public body = new Body({ mass: 1 });
 
   constructor() {
     this.mesh = new Group();
@@ -11,71 +12,46 @@ export class Sheep {
     gltf.load("/models/sheep/scene.gltf", (gltf) => {
       const root = gltf.scene;
       root.scale.set(50, 50, 50);
-
-      for (let i = 0; i < 100; i++) {
-        const sheep = root.clone();
-        sheep.position.set(
-          (Math.random() - 0.5) * 40,
-          0.5,
-          (Math.random() - 0.5) * 40
-        );
-        sheep.rotation.set(0, Math.random() * Math.PI * 2, 0);
-        this.mesh.add(sheep);
-      }
+      this.mesh.add(root);
     });
+
+    this.body.addShape(new Box(new Vec3(0.5, 0.5, 0.5)));
   }
 
-  public animate(predator1: Group, predator2: Group) {
-    for (let i = 0; i < this.mesh.children.length; i++) {
-      // this.y += 0.2;
-      // this.mesh.children[i].position.y += Math.sin(this.y) / 1;
-
-      if (this.mesh.children[i].position.z > 26) {
-        this.mesh.children[i].position.z = 25.5;
-      }
-      if (this.mesh.children[i].position.z < -24.5) {
-        this.mesh.children[i].position.z = -24;
-      }
-      if (this.mesh.children[i].position.x > 25.4) {
-        this.mesh.children[i].position.x = 25;
-      }
-      if (this.mesh.children[i].position.x < -25) {
-        this.mesh.children[i].position.x = -24.5;
-      }
-
-      this.predatorInteraction(predator1, i);
-      this.predatorInteraction(predator2, i);
-    }
+  public animate(predator1: Body, predator2: Body) {
+    this.predatorInteraction(predator1);
+    this.predatorInteraction(predator2);
   }
 
-  private distance(A: Group, B: Object3D) {
-    return Math.pow(
-      Math.pow(A.position.x - B.position.x, 2) +
-        Math.pow(A.position.z - B.position.z, 2),
-      0.5
-    );
+  public update() {
+    this.mesh.position.x = this.body.position.x;
+    this.mesh.position.y = this.body.position.y;
+    this.mesh.position.z = this.body.position.z;
+
+    this.mesh.quaternion.x = this.body.quaternion.x;
+    this.mesh.quaternion.y = this.body.quaternion.y;
+    this.mesh.quaternion.z = this.body.quaternion.z;
+    this.mesh.quaternion.w = this.body.quaternion.w;
   }
 
-  public predatorInteraction(predator: Group, i: number) {
-    if (this.distance(predator, this.mesh.children[i]) < 4.5) {
-      this.mesh.children[i].position.x +=
-        (this.mesh.children[i].position.x - predator.position.x) / 30;
-      this.mesh.children[i].position.z +=
-        (this.mesh.children[i].position.z - predator.position.z) / 30;
+  public predatorInteraction(predator: Body) {
+    const distance = this.body.position.distanceTo(predator.position);
+
+    if (distance < 1.5) {
+      this.body.position.x -= (predator.position.x - this.body.position.x) / 4;
+      this.body.position.z -= (predator.position.z - this.body.position.z) / 4;
     }
 
-    if (this.distance(predator, this.mesh.children[i]) < 1.5) {
-      this.mesh.children[i].position.x +=
-        (this.mesh.children[i].position.x - predator.position.x) / 9;
-      this.mesh.children[i].position.z +=
-        (this.mesh.children[i].position.z - predator.position.z) / 9;
+    if (distance < 4.5) {
+      this.body.position.x -= (predator.position.x - this.body.position.x) / 30;
+      this.body.position.z -= (predator.position.z - this.body.position.z) / 30;
     }
 
-    if (this.distance(predator, this.mesh.children[i]) < 16.5) {
-      this.mesh.children[i].position.x +=
-        (this.mesh.children[i].position.x - predator.position.x) / 300;
-      this.mesh.children[i].position.z +=
-        (this.mesh.children[i].position.z - predator.position.z) / 300;
+    if (distance < 16.5) {
+      this.body.position.x -=
+        (predator.position.x - this.body.position.x) / 300;
+      this.body.position.z -=
+        (predator.position.z - this.body.position.z) / 300;
     }
   }
 }

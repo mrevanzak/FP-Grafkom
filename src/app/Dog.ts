@@ -12,6 +12,7 @@ export class Dog {
     gltf.load("/models/sushi_dog/scene.gltf", (gltf) => {
       const root = gltf.scene;
       root.scale.set(50, 50, 50);
+      
       this.mesh.add(root);
     });
 

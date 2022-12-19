@@ -44,12 +44,12 @@ export class App {
     this.renderer.domElement
   );
   private world = new World({
-    gravity: new Vec3(0, -50.00, 0),
+    gravity: new Vec3(0, -50.0, 0),
   });
-  // private cannonDebugRenderer = new CannonDebugRenderer(this.scene, this.world);
+  private cannonDebugRenderer = new CannonDebugRenderer(this.scene, this.world);
   private dog1 = new Dog();
   private dog2 = new Dog();
-  private sheep = new Sheep();
+  private sheep: Sheep[] = [];
   private x = 0;
   private keyboard: { [key: string]: boolean } = {};
   private skybox = new Skybox();
@@ -66,10 +66,10 @@ export class App {
     this.setupScene();
     this.setupArea();
     this.setupDogs();
-    this.scene.add(this.sheep.mesh);
+    this.setupSheep();
     this.setupControls();
     this.setupSkybox();
-    this.music.play();
+    // this.music.play();
 
     this.cubeMesh = new Mesh(
       new BoxGeometry(1, 1, 1),
@@ -154,6 +154,21 @@ export class App {
     this.dog2.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), Math.PI);
     this.scene.add(this.dog2.mesh);
     this.world.addBody(this.dog2.body);
+  }
+
+  private setupSheep() {
+    for (let i = 0; i < 100; i++) {
+      const sheep = new Sheep();
+      sheep.body.position.set(
+        Math.random() * 40 - 20,
+        0.5,
+        Math.random() * 40 - 20
+      );
+      sheep.body.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), Math.PI);
+      this.scene.add(sheep.mesh);
+      this.world.addBody(sheep.body);
+      this.sheep.push(sheep);
+    }
   }
 
   private setupControls() {
@@ -272,10 +287,14 @@ export class App {
     const delta = this.timer.getDelta();
 
     requestAnimationFrame(() => this.render());
-    // this.cannonDebugRenderer.update();
+    this.cannonDebugRenderer.update();
     this.world.fixedStep();
     this.dog1.update();
     this.dog2.update();
+    for (let i = 0; i < this.sheep.length; i++) {
+      this.sheep[i].update();
+      this.sheep[i].animate(this.dog1.body, this.dog2.body);
+    }
     this.cubeMesh.position.set(
       this.cubeBody.position.x,
       this.cubeBody.position.y,
@@ -288,7 +307,6 @@ export class App {
     );
 
     this.keyboardControls();
-    this.sheep.animate(this.dog1.mesh, this.dog2.mesh);
     this.adjustCanvasSize();
 
     // this.x += speed;
