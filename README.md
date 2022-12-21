@@ -11,6 +11,14 @@
 | 5025201238 | Natya Madya Marciola       |
 
 
+## Herding Dog Game
+
+herding dog is a game whose goal is to get all the sheep into the cage, it can be played with multi player or single player game to train the right and left brain with aim of putting each sheep into the cage, but the sheep will move away from the dog every time it approaches them, the controls used in this game are:
+- WASD Keyboard at 1st Dog
+- Arrows (UP, DOWN, LEFT, RIGHT) at 2nd Dog
+
+
+
 # TypeScript + Webpack + Three.js template
 
 A minimalistic template for Three.js projects
